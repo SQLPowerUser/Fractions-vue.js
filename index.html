@@ -1,0 +1,65 @@
+﻿<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+	<title>test vue</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+
+<div id="main">
+	<div id="work-area">
+		<div id="summands"> <!-- контейнер для всех слагаемых -->
+			<fraction
+				v-for="(elem, idx) in inpData"
+				:somelink="elem"
+				:key="idx"
+			></fraction> <!-- дробь -->
+		</div>
+
+		<div id="result"> <!-- дробь для итогового результата -->
+			<div class="sign">
+				<svg> <!-- знак "равно" -->
+					<line x1="0" y1="30%" x2="100%" y2="30%" stroke="#aaa" stroke-width="1"/>
+					<line x1="0" y1="70%" x2="100%" y2="70%" stroke="#aaa" stroke-width="1"/>
+				</svg>
+			</div>
+			<input type="text" readonly :value="result.num">
+			<div class="hr"></div> <!-- дробная черта -->
+			<input type="text" readonly :value="result.den">
+		</div> <!-- конец id="result" -->
+	</div> <!-- конец id="work-area" -->
+
+	<div id="add-fraction">Добавить дробь</div>
+</div> <!-- конец id="main" -->
+
+
+<script type="text/x-template" id="fraction-template"> <!-- шаблон для дроби -->
+	<div class="fraction">
+		<div class="sign">
+			<svg> <!-- знак "плюс" -->
+				<line x1="50%" y1="0" x2="50%" y2="100%" stroke="#aaa" stroke-width="1"/>
+				<line x1="0" y1="50%" x2="100%" y2="50%" stroke="#aaa" stroke-width="1"/>
+			</svg>
+		</div>
+		<input
+			type="text" maxLength="2"
+			@keydown="validate"
+			v-model="somelink.numerator">
+		<div class="hr"></div> <!-- дробная черта -->
+		<input
+			type="text" maxLength="2"
+			@keydown="validate"
+			v-model="somelink.denominator">
+	</div> <!-- class="fraction" -->
+</script> <!-- id="fraction-template" -->
+
+
+<script src="vue.min.js"></script>
+<script src="index.js"></script>
+</body>
+</html>
